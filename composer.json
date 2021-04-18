@@ -1,6 +1,6 @@
 {
     "name": "archlinux-de/flarum-theme-archlinux",
-    "description": "Arch Linux theme for Flarum",
+    "description": "Arch Linux Theme for Flarum",
     "license": "GPL-3.0-or-later",
     "type": "flarum-extension",
     "require": {
@@ -13,7 +13,7 @@
     },
     "extra": {
         "flarum-extension": {
-            "title": "Arch Linux theme",
+            "title": "Arch Linux Theme",
             "icon": {
                 "name": "fas fa-pencil-alt",
                 "backgroundColor": "#08c",
