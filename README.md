@@ -1,5 +1,22 @@
+## Arch Linux Theme for Flarum
+
+This [Flarum](https://flarum.org/) extension is specific to [forum.archlinux.de](https://forum.archlinux.de/). While the
+code itself is free software, please ensure to adhere to
+the [Arch Linux trademark policy](https://wiki.archlinux.org/index.php/DeveloperWiki:TrademarkPolicy).
+
+### Installation
+
+```sh
+composer require archlinux-de/flarum-theme-archlinux
+```
+
+### Optional configuration:
+
 To configure header and footer links add the following entries to `/config.php`:
 
+```php
+<?php return [
+    // ...
     'arch' => [
         'home' => 'https://www.archlinux.de/',
         'navbar' => [
@@ -16,3 +33,5 @@ To configure header and footer links add the following entries to `/config.php`:
             'Impressum' => 'https://www.archlinux.de/impressum'
         ]
     ]
+];
+```
