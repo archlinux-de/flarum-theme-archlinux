@@ -20,7 +20,8 @@ class ArchLinuxTheme
     public function __invoke(Document $document): void
     {
         $forumApiDocument = $document->getForumApiDocument();
-        $document->head[] = '<link rel="shortcut icon" href="/assets/extensions/archlinux-de-theme-archlinux/favicon.ico" />';
+        $document->head[] =
+            '<link rel="shortcut icon" href="/assets/extensions/archlinux-de-theme-archlinux/favicon.ico" />';
 
         $forumApiDocument['data']['attributes']['headerHtml'] = $this->createHeader();
         $forumApiDocument['data']['attributes']['footerHtml'] = $this->createFooter();
