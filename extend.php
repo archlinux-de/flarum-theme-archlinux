@@ -1,6 +1,7 @@
 <?php
 
-use ArchLinux\Theme\ArchLinuxTheme;
+namespace ArchLinux\Theme;
+
 use Flarum\Extend;
 
 return [
