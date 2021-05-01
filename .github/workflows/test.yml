@@ -1,0 +1,25 @@
+name: test
+
+on:
+  push:
+  schedule:
+    - cron: '0 0 */1 * *'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package-version: [lowest, latest]
+        php-version: [8.0]
+    name: PHP ${{ matrix.php-version }} with ${{ matrix.package-version }} packages
+    steps:
+      - uses: actions/checkout@master
+      - name: Install PHP
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mbstring
+      - name: Install packages
+        run: make install-${{ matrix.package-version }}
+      - run: make test
