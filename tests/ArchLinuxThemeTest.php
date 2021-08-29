@@ -1,6 +1,6 @@
 <?php
 
-namespace ArchLinux\Theme\Tests;
+namespace ArchLinux\Theme\Test;
 
 use ArchLinux\Theme\ArchLinuxTheme;
 use Flarum\Foundation\Config;

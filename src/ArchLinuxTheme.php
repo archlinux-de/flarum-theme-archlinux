@@ -8,13 +8,8 @@ use Illuminate\Contracts\View\Factory as ViewFactory;
 
 class ArchLinuxTheme
 {
-    private Config $config;
-    private ViewFactory $factory;
-
-    public function __construct(Config $config, ViewFactory $factory)
+    public function __construct(private Config $config, private ViewFactory $factory)
     {
-        $this->config = $config;
-        $this->factory = $factory;
     }
 
     public function __invoke(Document $document): void

@@ -4,11 +4,13 @@
     "license": "GPL-3.0-or-later",
     "type": "flarum-extension",
     "require": {
+        "PHP": "^8.0",
         "flarum/core": "^1.0.0"
     },
     "autoload": {
         "psr-4": {
-            "ArchLinux\\Theme\\": "src/"
+            "ArchLinux\\Theme\\": "src/",
+            "ArchLinux\\Theme\\Test\\": "tests/"
         }
     },
     "extra": {
