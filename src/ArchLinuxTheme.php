@@ -26,7 +26,7 @@ class ArchLinuxTheme
             '<link rel="manifest" href="' . self::ASSETS_PATH . '/manifest.webmanifest">'
         );
 
-        if (!Arr::has($forumApiDocument, 'data.attributes.faviconUrl')) {
+        if (!Arr::get($forumApiDocument, 'data.attributes.faviconUrl')) {
             Arr::set(
                 $document->head,
                 'favicon',
