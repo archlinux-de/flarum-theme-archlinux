@@ -9,6 +9,8 @@ use Illuminate\Support\Arr;
 
 class ArchLinuxTheme
 {
+    private const ASSETS_PATH = '/assets/extensions/archlinux-de-theme-archlinux';
+
     public function __construct(private Config $config, private ViewFactory $factory)
     {
     }
@@ -17,11 +19,18 @@ class ArchLinuxTheme
     {
         $forumApiDocument = $document->getForumApiDocument();
 
+        Arr::set($document->meta, 'theme-color', '#333');
+        Arr::set(
+            $document->head,
+            'manifest',
+            '<link rel="manifest" href="' . self::ASSETS_PATH . '/manifest.webmanifest">'
+        );
+
         if (!Arr::has($forumApiDocument, 'data.attributes.faviconUrl')) {
             Arr::set(
                 $document->head,
                 'favicon',
-                '<link rel="shortcut icon" href="/assets/extensions/archlinux-de-theme-archlinux/favicon.ico">'
+                '<link rel="icon" href="' . self::ASSETS_PATH . '/archicon.svg" sizes="any" type="image/svg+xml">'
             );
         }
 

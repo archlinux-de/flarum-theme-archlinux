@@ -56,6 +56,6 @@ class ArchLinuxThemeTest extends TestCase
 
         $this->assertEquals('foo', $document->getForumApiDocument()['data']['attributes']['headerHtml']);
         $this->assertEquals('foo', $document->getForumApiDocument()['data']['attributes']['footerHtml']);
-        $this->assertStringContainsString('rel="shortcut icon"', $document->head['favicon']);
+        $this->assertStringContainsString('rel="icon"', $document->head['favicon']);
     }
 }
