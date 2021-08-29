@@ -5,6 +5,7 @@ namespace ArchLinux\Theme;
 use Flarum\Foundation\Config;
 use Flarum\Frontend\Document;
 use Illuminate\Contracts\View\Factory as ViewFactory;
+use Illuminate\Support\Arr;
 
 class ArchLinuxTheme
 {
@@ -15,11 +16,25 @@ class ArchLinuxTheme
     public function __invoke(Document $document): void
     {
         $forumApiDocument = $document->getForumApiDocument();
-        $document->head[] =
-            '<link rel="shortcut icon" href="/assets/extensions/archlinux-de-theme-archlinux/favicon.ico" />';
 
-        $forumApiDocument['data']['attributes']['headerHtml'] = $this->createHeader();
-        $forumApiDocument['data']['attributes']['footerHtml'] = $this->createFooter();
+        if (!Arr::has($forumApiDocument, 'data.attributes.faviconUrl')) {
+            Arr::set(
+                $document->head,
+                'favicon',
+                '<link rel="shortcut icon" href="/assets/extensions/archlinux-de-theme-archlinux/favicon.ico">'
+            );
+        }
+
+        Arr::set(
+            $forumApiDocument,
+            'data.attributes.headerHtml',
+            $this->createHeader() . Arr::get($forumApiDocument, 'data.attributes.headerHtml', '')
+        );
+        Arr::set(
+            $forumApiDocument,
+            'data.attributes.footerHtml',
+            Arr::get($forumApiDocument, 'data.attributes.footerHtml', '') . $this->createFooter()
+        );
 
         $document->setForumApiDocument($forumApiDocument);
     }
