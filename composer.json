@@ -30,5 +30,10 @@
         "phpstan/phpstan": "^1.0.2",
         "phpstan/phpstan-deprecation-rules": "^1.0.0",
         "phpstan/phpstan-phpunit": "^1.0.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
     }
 }

@@ -34,33 +34,50 @@ class ArchLinuxTheme
             );
         }
 
+        $config = $this->getConfig();
+
         Arr::set(
             $forumApiDocument,
             'data.attributes.headerHtml',
-            $this->createHeader() . Arr::get($forumApiDocument, 'data.attributes.headerHtml', '')
+            $this->createHeader($config) . Arr::get($forumApiDocument, 'data.attributes.headerHtml', '')
         );
         Arr::set(
             $forumApiDocument,
             'data.attributes.footerHtml',
-            Arr::get($forumApiDocument, 'data.attributes.footerHtml', '') . $this->createFooter()
+            Arr::get($forumApiDocument, 'data.attributes.footerHtml', '') . $this->createFooter($config)
         );
 
         $document->setForumApiDocument($forumApiDocument);
     }
 
-    private function createHeader(): string
+    /**
+     * @return string[]
+     */
+    private function getConfig(): array
+    {
+        $config = $this->config->offsetGet('arch');
+        return is_array($config) ? $config : [];
+    }
+
+    /**
+     * @param string[] $config
+     */
+    private function createHeader(array $config): string
     {
         return $this->factory->make(
             'theme-archlinux::header',
-            $this->config->offsetGet('arch') ?? []
+            $config
         )->render();
     }
 
-    private function createFooter(): string
+    /**
+     * @param string[] $config
+     */
+    private function createFooter(array $config): string
     {
         return $this->factory->make(
             'theme-archlinux::footer',
-            $this->config->offsetGet('arch') ?? []
+            $config
         )->render();
     }
 }
