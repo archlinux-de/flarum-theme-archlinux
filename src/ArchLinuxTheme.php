@@ -36,7 +36,7 @@ class ArchLinuxTheme
 
         $config = $this->getConfig();
 
-        $headerHtml = Arr::get($forumApiDocument, 'data.attributes.headerHtml', '');
+        $headerHtml = Arr::get($forumApiDocument, 'data.attributes.headerHtml', '') ?? '';
         assert(is_string($headerHtml));
         Arr::set(
             $forumApiDocument,
@@ -44,7 +44,7 @@ class ArchLinuxTheme
             $this->createHeader($config) . $headerHtml
         );
 
-        $footerHtml = Arr::get($forumApiDocument, 'data.attributes.footerHtml', '');
+        $footerHtml = Arr::get($forumApiDocument, 'data.attributes.footerHtml', '') ?? '';
         assert(is_string($footerHtml));
         Arr::set(
             $forumApiDocument,
