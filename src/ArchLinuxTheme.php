@@ -11,7 +11,7 @@ class ArchLinuxTheme
 {
     private const ASSETS_PATH = '/assets/extensions/archlinux-de-theme-archlinux';
 
-    public function __construct(private Config $config, private ViewFactory $factory)
+    public function __construct(private readonly Config $config, private readonly ViewFactory $factory)
     {
     }
 
@@ -36,15 +36,20 @@ class ArchLinuxTheme
 
         $config = $this->getConfig();
 
+        $headerHtml = Arr::get($forumApiDocument, 'data.attributes.headerHtml', '');
+        assert(is_string($headerHtml));
         Arr::set(
             $forumApiDocument,
             'data.attributes.headerHtml',
-            $this->createHeader($config) . Arr::get($forumApiDocument, 'data.attributes.headerHtml', '')
+            $this->createHeader($config) . $headerHtml
         );
+
+        $footerHtml = Arr::get($forumApiDocument, 'data.attributes.footerHtml', '');
+        assert(is_string($footerHtml));
         Arr::set(
             $forumApiDocument,
             'data.attributes.footerHtml',
-            Arr::get($forumApiDocument, 'data.attributes.footerHtml', '') . $this->createFooter($config)
+            $footerHtml . $this->createFooter($config)
         );
 
         $document->setForumApiDocument($forumApiDocument);
@@ -56,7 +61,7 @@ class ArchLinuxTheme
     private function getConfig(): array
     {
         $config = $this->config->offsetGet('arch');
-        return is_array($config) ? $config : [];
+        return is_array($config) ? $config : []; // @phpstan-ignore return.type
     }
 
     /**

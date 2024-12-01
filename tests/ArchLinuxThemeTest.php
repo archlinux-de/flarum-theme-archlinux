@@ -54,8 +54,11 @@ class ArchLinuxThemeTest extends TestCase
         $archLinuxTheme = new ArchLinuxTheme($config, $viewFactory);
         $archLinuxTheme($document);
 
+        $this->assertIsArray($document->getForumApiDocument()['data']);
+        $this->assertIsArray($document->getForumApiDocument()['data']['attributes']);
         $this->assertEquals('foo', $document->getForumApiDocument()['data']['attributes']['headerHtml']);
         $this->assertEquals('foo', $document->getForumApiDocument()['data']['attributes']['footerHtml']);
+        $this->assertIsString($document->head['favicon']);
         $this->assertStringContainsString('rel="icon"', $document->head['favicon']);
     }
 }
