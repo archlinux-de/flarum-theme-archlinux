@@ -15,7 +15,7 @@ jobs:
     name: PHP ${{ matrix.php-version }} with ${{ matrix.package-version }} packages
     steps:
       - name: Install Just
-        uses: extractions/setup-just@v2
+        uses: extractions/setup-just@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Checkout code
