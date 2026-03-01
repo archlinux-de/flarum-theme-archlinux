@@ -5,7 +5,7 @@
     "type": "flarum-extension",
     "require": {
         "PHP": "^8.2",
-        "flarum/core": "^1.0.0"
+        "flarum/core": "^2.0"
     },
     "autoload": {
         "psr-4": {
@@ -17,7 +17,7 @@
         "flarum-extension": {
             "title": "Arch Linux Theme",
             "icon": {
-                "name": "fas fa-pencil-alt",
+                "name": "fas fa-pencil",
                 "backgroundColor": "#08c",
                 "color": "#fff"
             }
