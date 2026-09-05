@@ -8,5 +8,3 @@
 
 node_modules
 coverage-ts
-dist
-dist-typings
