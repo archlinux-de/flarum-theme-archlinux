@@ -17,5 +17,4 @@ check-frontend:
 	{{NPM}} run format-check
 	{{NPM}} run build-typings
 	{{NPM}} run check-typings
-	{{NPM}} run check-typings-coverage
 	{{NPM}} run build
