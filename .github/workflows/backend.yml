@@ -1,0 +1,33 @@
+name: Arch Linux Theme PHP
+
+on: [workflow_dispatch, push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ["8.3", "8.4", "8.5"]
+    name: Unit tests on PHP ${{ matrix.php }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: curl, dom, gd, json, mbstring, openssl, tokenizer, zip
+          tools: composer:v2
+      - run: composer install --no-interaction --prefer-dist
+      - run: composer test:unit
+
+  phpstan:
+    runs-on: ubuntu-latest
+    name: PHPStan on PHP 8.5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.5"
+          extensions: curl, dom, gd, json, mbstring, openssl, tokenizer, zip
+          tools: composer:v2
+      - run: composer install --no-interaction --prefer-dist
+      - run: composer analyse:phpstan

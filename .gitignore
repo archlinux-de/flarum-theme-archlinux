@@ -1,6 +1,13 @@
-/.idea/
-/vendor/
-/phpunit.xml
-/composer.lock
+/vendor
+composer.lock
+composer.phar
+
+.DS_Store
+Thumbs.db
+tests/.phpunit.result.cache
+.vagrant
+.idea/*
+.vscode
+js/coverage-ts
 /coverage/
 /.phpunit.result.cache

@@ -4,13 +4,12 @@
     "license": "GPL-3.0-or-later",
     "type": "flarum-extension",
     "require": {
-        "PHP": "^8.2",
+        "PHP": "^8.3",
         "flarum/core": "^1.0.0"
     },
     "autoload": {
         "psr-4": {
-            "ArchLinux\\Theme\\": "src/",
-            "ArchLinux\\Theme\\Test\\": "tests/"
+            "ArchLinux\\Theme\\": "src/"
         }
     },
     "extra": {
@@ -21,19 +20,52 @@
                 "backgroundColor": "#08c",
                 "color": "#fff"
             }
+        },
+        "flarum-cli": {
+            "modules": {
+                "js": true,
+                "typescript": true,
+                "githubActions": true,
+                "admin": false,
+                "forum": true,
+                "jsCommon": false,
+                "css": true,
+                "gitConf": true,
+                "prettier": true,
+                "bundlewatch": false,
+                "backendTesting": true,
+                "editorConfig": true,
+                "styleci": true
+            }
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^11.5",
+        "phpunit/phpunit": "^9.6",
         "squizlabs/php_codesniffer": "^4.0",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.0",
         "phpstan/phpstan-deprecation-rules": "^2.0",
-        "phpstan/phpstan-phpunit": "^2.0"
+        "phpstan/phpstan-phpunit": "^2.0",
+        "flarum/testing": "^1.0.0"
     },
     "config": {
         "allow-plugins": {
             "phpstan/extension-installer": true
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ArchLinux\\Theme\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "@test:unit",
+        "test:unit": "phpunit -c tests/phpunit.unit.xml",
+        "analyse:phpstan": "phpstan analyse"
+    },
+    "scripts-descriptions": {
+        "test": "Runs unit tests.",
+        "test:unit": "Runs all unit tests.",
+        "analyse:phpstan": "Runs PHPStan."
     }
 }

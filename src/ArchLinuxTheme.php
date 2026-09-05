@@ -7,7 +7,16 @@ use Flarum\Frontend\Document;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Support\Arr;
 
-class ArchLinuxTheme
+/**
+ * @phpstan-type Links array<string, string>
+ * @phpstan-type ThemeConfig array{
+ *     home?: string,
+ *     navbar?: Links,
+ *     navbar_selected?: string,
+ *     footer?: Links
+ * }
+ */
+final class ArchLinuxTheme
 {
     private const ASSETS_PATH = '/assets/extensions/archlinux-de-theme-archlinux';
 
@@ -56,16 +65,21 @@ class ArchLinuxTheme
     }
 
     /**
-     * @return string[]
+     * @return ThemeConfig
      */
     private function getConfig(): array
     {
         $config = $this->config->offsetGet('arch');
-        return is_array($config) ? $config : []; // @phpstan-ignore return.type
+        if (!is_array($config)) {
+            return [];
+        }
+
+        /** @var ThemeConfig $config */
+        return $config;
     }
 
     /**
-     * @param string[] $config
+     * @param ThemeConfig $config
      */
     private function createHeader(array $config): string
     {
@@ -76,7 +90,7 @@ class ArchLinuxTheme
     }
 
     /**
-     * @param string[] $config
+     * @param ThemeConfig $config
      */
     private function createFooter(array $config): string
     {

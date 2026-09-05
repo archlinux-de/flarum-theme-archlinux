@@ -10,6 +10,20 @@ the [Arch Linux trademark policy](https://wiki.archlinux.org/index.php/Developer
 composer require archlinux-de/flarum-theme-archlinux
 ```
 
+### Development
+
+```sh
+just install
+just test
+just check
+just check-frontend
+```
+
+`test` runs the unit test suite.
+
+See [development and scaffolding notes](DEVELOPMENT.md) before refreshing
+Flarum CLI infrastructure or workflows.
+
 ### Optional configuration:
 
 To configure header and footer links add the following entries to `/config.php`:

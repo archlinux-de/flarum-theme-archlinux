@@ -1,6 +1,6 @@
 <?php
 
-namespace ArchLinux\Theme\Test;
+namespace ArchLinux\Theme\Tests\Unit;
 
 use ArchLinux\Theme\ArchLinuxTheme;
 use Flarum\Foundation\Config;
@@ -9,7 +9,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use PHPUnit\Framework\TestCase;
 
-class ArchLinuxThemeTest extends TestCase
+final class ArchLinuxThemeTest extends TestCase
 {
     public function testRender(): void
     {

@@ -1,16 +1,21 @@
 COMPOSER := 'composer --no-interaction'
+NPM := 'npm --prefix js'
 
-install-latest:
-	{{COMPOSER}} update --prefer-stable
-
-install-lowest:
-	{{COMPOSER}} update --prefer-lowest
+install:
+	{{COMPOSER}} install
+	{{NPM}} ci
 
 test:
+	{{COMPOSER}} test
+
+check:
 	{{COMPOSER}} validate --strict --no-check-lock
 	vendor/bin/phpcs
-	vendor/bin/phpstan analyse
-	vendor/bin/phpunit
+	{{COMPOSER}} analyse:phpstan
 
-test-coverage:
-	php -d zend_extension=xdebug -d xdebug.mode=coverage -d memory_limit=-1 vendor/bin/phpunit --coverage-html coverage
+check-frontend:
+	{{NPM}} run format-check
+	{{NPM}} run build-typings
+	{{NPM}} run check-typings
+	{{NPM}} run check-typings-coverage
+	{{NPM}} run build
