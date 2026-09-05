@@ -1,133 +1,183 @@
 /*
- * ARCH GLOBAL NAVBAR
+ * Standalone compatibility layer for the www.archlinux.de Bootstrap navbar.
  *
- * We're forcing all generic selectors with !important
- * to help prevent other stylesheets from interfering.
+ * Source of truth:
+ * - www.archlinux.de/src/_bootstrap.scss for the Arch colour and typography
+ *   overrides.
+ * - www.archlinux.de/internal/ui/layout/base.templ for the navbar classes.
+ * - Bootstrap's navbar, spacing, and dark-theme defaults for the remaining
+ *   values.
  *
+ * Keep these tokens in sync when the www navbar changes. Some resolved values
+ * intentionally use pixels: the forum and www have different root font-size
+ * contexts, so copying the original rem expression would change the rendered
+ * geometry here.
  */
+@arch-navbar-primary: #08c;
+@arch-navbar-dark: #333;
+@arch-navbar-light: #fff;
+@arch-navbar-font-size-base: .875rem;
+@arch-navbar-brand-font-size: @arch-navbar-font-size-base * 1.25;
+@arch-navbar-line-height: 1.5;
+@arch-navbar-spacer: 1rem;
+@arch-navbar-expand-breakpoint: 768px;
 
-/* container for the entire bar */
+// www's Bootstrap $grid-gutter-width resolves to 24px.
+@arch-navbar-gutter: 24px;
+@arch-navbar-border-width: 5px;
+@arch-navbar-padding-y: 8px;
+@arch-navbar-logo-width: 190px;
+@arch-navbar-logo-height: 40px;
 
-#archnavbar {
-  height: 65px !important;
-  padding: 10px 15px !important;
-  background: #333 !important;
-  border-bottom: 5px #08c solid !important;
+// Bootstrap's dark navbar theme values.
+@arch-navbar-color: rgba(255, 255, 255, .65);
+@arch-navbar-hover-color: rgba(255, 255, 255, .8);
+@arch-navbar-toggler-border-color: rgba(255, 255, 255, .1);
+@arch-navbar-toggler-padding-y: .25rem;
+@arch-navbar-toggler-padding-x: .75rem;
+@arch-navbar-toggler-focus-width: .25rem;
 
-  &.anb-forum ul li.anb-selected a {
-    color: #fff !important;
-  }
+#arch-navbar {
+  background: @arch-navbar-dark;
+  border-bottom: @arch-navbar-border-width solid @arch-navbar-primary;
+  box-sizing: border-box;
+  color: @arch-navbar-light;
+  margin-bottom: @arch-navbar-spacer * 1.5;
+  padding: @arch-navbar-padding-y 0;
 
-  /* display the list inline, float it to the right and style it */
-
-  ul {
-    display: inline !important;
-    float: right !important;
-    list-style: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-
-    li {
-      float: left !important;
-      font-size: 14px !important;
-      font-family: sans-serif !important;
-      line-height: 45px !important;
-      padding-right: 15px !important;
-      padding-left: 15px !important;
-
-      a:hover {
-        color: white !important;
-        text-decoration: underline !important;
-      }
-    }
-
-    /* style the links */
-
-    &#archnavbarlist li a {
-      color: #999;
-      font-weight: bold !important;
-      text-decoration: none !important;
-    }
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
   }
 }
 
-#archnavbarlogo {
-  float: left !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  height: 40px !important;
-  width: 190px !important;
-  background: url('/assets/extensions/archlinux-de-theme-archlinux/archlogo.svg') no-repeat !important;
-  background-size: 190px 40px !important;
+.arch-navbar__inner {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 auto;
+  // Bootstrap container-fluid applies half the gutter on each side.
+  padding: 0 (@arch-navbar-gutter / 2);
+  width: 100%;
+}
 
-  /* move the heading/paragraph text offscreen */
+.arch-navbar__brand {
+  display: block;
+  flex: 0 0 auto;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: @arch-navbar-brand-font-size;
+  line-height: @arch-navbar-line-height;
+  margin-right: @arch-navbar-spacer;
+  padding: .14rem 0;
+  white-space: nowrap;
 
-  p {
-    margin: 0 !important;
-    padding: 0 !important;
-    text-indent: -9999px !important;
-  }
-
-  h1 {
-    margin: 0 !important;
-    padding: 0 !important;
-    text-indent: -9999px !important;
-  }
-
-  /* make the link the same size as the logo */
-
-  a {
-    display: block !important;
-    height: 40px !important;
-    width: 190px !important;
+  img {
+    display: inline-block;
+    height: @arch-navbar-logo-height;
+    vertical-align: text-top;
+    width: @arch-navbar-logo-width;
   }
 }
 
-@media (max-width: 680px) {
-  #anb-forum,
-  #anb-forums {
-    display: none;
+.arch-navbar__toggle {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 1px solid @arch-navbar-toggler-border-color;
+  color: @arch-navbar-color;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: @arch-navbar-brand-font-size;
+  justify-content: center;
+  line-height: 1;
+  padding: @arch-navbar-toggler-padding-y @arch-navbar-toggler-padding-x;
+}
+
+.arch-navbar__toggle-icon {
+  // Exact Bootstrap dark-navbar SVG; the three bars are evenly spaced.
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2030%2030%22%3E%3Cpath%20stroke%3D%22rgba%28255%2C%20255%2C%20255%2C%200.55%29%22%20stroke-linecap%3D%22round%22%20stroke-miterlimit%3D%2210%22%20stroke-width%3D%222%22%20d%3D%22M4%207h22M4%2015h22M4%2023h22%22%2F%3E%3C%2Fsvg%3E");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  display: block;
+  height: 1.5em;
+  width: 1.5em;
+}
+
+.arch-navbar__link:focus-visible {
+  outline: 2px solid @arch-navbar-light;
+  outline-offset: 2px;
+}
+
+.arch-navbar__toggle:focus {
+  box-shadow: 0 0 0 @arch-navbar-toggler-focus-width;
+  outline: 0;
+}
+
+.arch-navbar__menu {
+  display: none;
+  flex-basis: 100%;
+}
+
+.arch-navbar__menu.is-open {
+  display: block;
+}
+
+.arch-navbar__list {
+  list-style: none;
+  margin: 0 0 (@arch-navbar-spacer / 2);
+  padding: 0;
+}
+
+.arch-navbar__link {
+  color: @arch-navbar-color;
+  display: block;
+  font-size: @arch-navbar-font-size-base;
+  font-weight: 700;
+  line-height: @arch-navbar-line-height;
+  margin-left: @arch-navbar-spacer;
+  padding: (@arch-navbar-spacer / 2) 0;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: @arch-navbar-hover-color;
+    text-decoration: none;
   }
 
-  #archnavbarlogo {
-    width: 40px !important;
-    margin-right: 5px !important;
-    background: url('/assets/extensions/archlinux-de-theme-archlinux/archicon.svg') no-repeat !important;
-    background-size: 40px 40px !important;
+  &.is-active {
+    color: @arch-navbar-light;
   }
+}
 
-  #archnavbar ul {
-    display: flex !important;
-    justify-content: space-between;
+@media (min-width: @arch-navbar-expand-breakpoint) {
+  .arch-navbar__inner {
     flex-wrap: nowrap;
-    overflow: hidden;
-    float: none !important;
-
-    li {
-      padding: 0 !important;
-      float: none !important;
-    }
+    justify-content: flex-start;
   }
-}
 
-@media (max-width: 830px) {
-  #anb-home,
-  #anb-start {
+  .arch-navbar__toggle {
     display: none;
   }
 
-  #archnavbarlogo {
-    padding-right: 15px !important;
+  .arch-navbar__menu,
+  .arch-navbar__menu.is-open {
+    align-items: center;
+    display: flex;
+    flex-basis: auto;
+    flex-grow: 1;
   }
 
-  #archnavbar {
-    padding-left: 5px !important;
-    padding-right: 5px !important;
+  .arch-navbar__list {
+    display: flex;
+    margin: 0 0 0 auto;
+  }
 
-    ul li {
-      padding-left: 5px !important;
-      padding-right: 5px !important;
-    }
+  .arch-navbar__link {
+    // Desktop Bootstrap nav links restore horizontal .5rem padding.
+    padding: (@arch-navbar-spacer / 2);
   }
 }
 
