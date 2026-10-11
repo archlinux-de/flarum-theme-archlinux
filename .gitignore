@@ -11,3 +11,5 @@ tests/.phpunit.result.cache
 js/coverage-ts
 /coverage/
 /.phpunit.result.cache
+
+/tests/.phpunit.cache/
